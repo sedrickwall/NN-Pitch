@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "sales_pitch.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/sales_pitch.html" }
+  ]
+}
