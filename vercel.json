@@ -5,9 +5,9 @@
   ],
   "routes": [
     { "src": "/", "dest": "/sales_pitch.html" },
-    { "src": "/bridge.png", "dest": "/Bridge.png" }
+  { "src": "/bridge.png", "dest": "/assets/bridge.png" }
   ]
   ,"rewrites": [
-    { "source": "/bridge.png", "destination": "/Bridge.png" }
+    { "source": "/bridge.png", "destination": "/assets/bridge.png" }
   ]
 }
