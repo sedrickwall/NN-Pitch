@@ -396,7 +396,50 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
         <p class="chart-summary">This formalizes what is already happening and gives it mandate and accountability.</p>
     </div>
 </div>
+<!-- Slide 6: Live AI Prototype (moved after Slide 5) -->
+                        <div class="slide-container" id="slide6">
+                            <h2 class="slide-title">Live Prototype: AI Enablement</h2>
+                            <div class="content-area">
+                                <div class="two-column tiled" style="grid-template-columns: 1fr 1.5fr;">
+                                    <!-- Context Side -->
+                                    <div>
+                                        <h3>Pillar 5 in Action</h3>
+                                        <p>This "RFP Assistant" demonstrates the <strong>Product Management</strong> capability of the new role.</p>
+                                        <ul style="margin-top: 20px;">
+                                            <li><strong>Problem:</strong> Senior BDs waste 3-5 hours/week searching for "boilerplate" answers for RFPs.</li>
+                                            <li><strong>Solution:</strong> A maintained AI model trained on our past successful proposals.</li>
+                                            <li><strong>Impact:</strong> Reduces drafting time by 60%, allowing BD to focus on strategy and pricing.</li>
+                                        </ul>
+                                        <div style="margin-top: 40px; padding: 20px; background: #e0f2fe; border-radius: 8px; border-left: 4px solid #005EB8;">
+                                            <p style="font-size: 16px; margin: 0; color: #002D62;"><strong>Try it:</strong> Ask about our Phase I capabilities or Oncology experience.</p>
+                                        </div>
+                                    </div>
 
+                                    <!-- Interactive Demo Side -->
+                                    <div class="ai-demo-container">
+                                        <div class="ai-input-group">
+                                            <label class="ai-label">Incoming Client RFP Question</label>
+                                            <textarea id="rfpInput" class="ai-textarea" placeholder="e.g., Do you have experience with Phase I Oncology trials in Australia?"></textarea>
+                                        </div>
+                
+                                        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                                            <button id="generateBtn" class="ai-button" onclick="generateResponse()">
+                                                <span class="loading-spinner" id="spinner"></span>
+                                                <span>Generate Response ✨</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="ai-input-group" style="flex-grow: 1; display: flex; flex-direction: column;">
+                                            <label class="ai-label">Drafted Response (Nucleus Voice)</label>
+                                            <div id="aiOutput" class="ai-output placeholder">
+                                                AI generated response will appear here...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
 <!-- Slide 7: The Ask -->
 <div class="slide-container" id="slide7">
     <h2 class="slide-title">The Ask</h2>
@@ -468,49 +511,7 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
                 </div>
             </div>
 
-                        <!-- Slide 6: Live AI Prototype (moved after Slide 5) -->
-                        <div class="slide-container" id="slide6">
-                            <h2 class="slide-title">Live Prototype: AI Enablement</h2>
-                            <div class="content-area">
-                                <div class="two-column tiled" style="grid-template-columns: 1fr 1.5fr;">
-                                    <!-- Context Side -->
-                                    <div>
-                                        <h3>Pillar 5 in Action</h3>
-                                        <p>This "RFP Assistant" demonstrates the <strong>Product Management</strong> capability of the new role.</p>
-                                        <ul style="margin-top: 20px;">
-                                            <li><strong>Problem:</strong> Senior BDs waste 3-5 hours/week searching for "boilerplate" answers for RFPs.</li>
-                                            <li><strong>Solution:</strong> A maintained AI model trained on our past successful proposals.</li>
-                                            <li><strong>Impact:</strong> Reduces drafting time by 60%, allowing BD to focus on strategy and pricing.</li>
-                                        </ul>
-                                        <div style="margin-top: 40px; padding: 20px; background: #e0f2fe; border-radius: 8px; border-left: 4px solid #005EB8;">
-                                            <p style="font-size: 16px; margin: 0; color: #002D62;"><strong>Try it:</strong> Ask about our Phase I capabilities or Oncology experience.</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Interactive Demo Side -->
-                                    <div class="ai-demo-container">
-                                        <div class="ai-input-group">
-                                            <label class="ai-label">Incoming Client RFP Question</label>
-                                            <textarea id="rfpInput" class="ai-textarea" placeholder="e.g., Do you have experience with Phase I Oncology trials in Australia?"></textarea>
-                                        </div>
-                
-                                        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-                                            <button id="generateBtn" class="ai-button" onclick="generateResponse()">
-                                                <span class="loading-spinner" id="spinner"></span>
-                                                <span>Generate Response ✨</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="ai-input-group" style="flex-grow: 1; display: flex; flex-direction: column;">
-                                            <label class="ai-label">Drafted Response (Nucleus Voice)</label>
-                                            <div id="aiOutput" class="ai-output placeholder">
-                                                AI generated response will appear here...
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 <div class="slide-container" id="slide9">
     <h2 class="slide-title">Conclusion: The Strategic Case</h2>
     <div class="content-area">
