@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Enablement Manager - Business Case</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Firebase Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        
+        // --- Configuration & Init ---
+        const firebaseConfig = JSON.parse(localStorage.getItem('firebaseConfig') || '{}'); 
+        // Note: The environment usually injects __firebase_config. 
+        // We will handle the logic in the main script tag below for robustness in this preview environment.
+    </script>
+
+    <style>
+/* 1. THE SETUP */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
+  min-height: 100vh;
+  padding: 40px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Slide Container */
+.slide-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  width: 1280px; /* Fixed standard slide size */
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Background Design - Subtle Corporate Geometric */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at top right, #f1f5f9 0%, transparent 70%);
+  z-index: 0;
+}
+
+.slide-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #002D62 0%, #005EB8 100%); /* Nucleus Network Blue Gradient */
+  z-index: 0;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. TYPOGRAPHY */
+h1, h2, h3 {
+  color: #002D62; /* Deep Navy */
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+p, li, th, td {
+  color: #475569; /* Slate Grey */
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+h1 { font-size: 64px; margin-bottom: 20px; }
+.slide-title { font-size: 42px; margin-bottom: 40px; width: 100%; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for Subheads */ }
+.subtitle { font-size: 24px; color: #64748b; font-weight: 300; }
+
+/* 3. LAYOUTS */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Title Slide */
+.title-layout {
+  text-align: left;
+  max-width: 900px;
+}
+.title-layout h1 { font-size: 72px; line-height: 1.1; color: #0f172a; }
+.title-layout hr { border: none; height: 4px; background: #005EB8; width: 100px; margin: 30px 0; }
+.title-layout .meta { font-size: 22px; color: #64748b; margin-top: 20px; display: block; }
+
+/* Two Column Tiled */
+.two-column.tiled { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; height: 100%; align-items: stretch; }
+.two-column.tiled > div { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-start; }
+.two-column.tiled h3 { border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; margin-bottom: 20px; }
+.two-column.tiled ul { padding-left: 20px; margin: 0; }
+.two-column.tiled li { margin-bottom: 15px; font-size: 19px; }
+
+/* Bleed Image Right */
+.slide-container.bleed-image-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+  gap: 0;
+  align-items: start;
+}
+.bleed-image-layout .content-container { padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.bleed-image-layout .image-container { height: 720px; width: 100%; overflow: hidden; }
+.bleed-image-layout img.bleed-image-side { width: 100%; height: 100%; object-fit: cover; max-height: 720px; }
+.bleed-image-layout h2 { font-size: 48px; margin-bottom: 30px; color: #002D62; }
+.bleed-text-side p strong { color: #005EB8; }
+
+/* Tiled Icons */
+.tiled-content { display: flex; gap: 30px; width: 100%; justify-content: center; }
+.tile { flex: 1; background: #ffffff; border: 1px solid #e2e8f0; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+.tile .icon { font-size: 48px; color: #005EB8; margin-bottom: 20px; }
+.tile p { font-size: 18px; }
+
+/* Chart Styling */
+.chart-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 900px; margin: 0 auto; }
+.bar { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; }
+.bar .label { flex: 0 0 250px; text-align: right; font-weight: 600; font-size: 18px; color: #334155; }
+.bar .bar-inner { flex-grow: 1; background: #f1f5f9; border-radius: 4px; height: 50px; position: relative; overflow: hidden; }
+.bar .bar-fill { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: white; font-weight: 700; font-size: 18px; border-radius: 4px; }
+.chart-summary { text-align: center; margin-top: 30px; font-style: italic; color: #64748b; font-size: 18px; }
+
+/* Timeline */
+.timeline-layout { position: relative; display: flex; justify-content: space-between; align-items: flex-start; width: 100%; margin-top: 60px; }
+.timeline-layout::before { content: ''; position: absolute; top: 20px; left: 0; width: 100%; height: 4px; background: #e2e8f0; z-index: 0; }
+.timeline-item { position: relative; z-index: 1; width: 23%; text-align: center; padding-top: 50px; }
+.timeline-item::after { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 32px; height: 32px; background: #ffffff; border: 4px solid #005EB8; border-radius: 50%; }
+.timeline-item h3 { font-size: 22px; color: #002D62; margin-bottom: 10px; }
+.timeline-item p { font-size: 16px; color: #64748b; }
+
+/* Table for Current Reality (Optional use in Bleed layout or standalone) */
+.simple-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.simple-table td { padding: 15px 0; border-bottom: 1px solid #e2e8f0; font-size: 18px; }
+.simple-table td:first-child { font-weight: 700; color: #002D62; width: 40%; }
+
+/* Ask Grid */
+.ask-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.ask-box { background: #f8fafc; padding: 30px; border-radius: 8px; border-left: 5px solid #005EB8; }
+.ask-box h3 { border: none; margin-bottom: 15px; }
+.ask-box ul { padding-left: 20px; }
+.decision-box { grid-column: 1 / -1; background: #002D62; color: white; padding: 30px; text-align: center; border-radius: 8px; margin-top: 20px; }
+.decision-box h3 { color: white; }
+
+/* AI Demo Styles */
+.ai-demo-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.ai-input-group {
+    margin-bottom: 20px;
+}
+
+.ai-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ai-textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    resize: none;
+    height: 100px;
+    transition: all 0.2s;
+}
+
+.ai-textarea:focus {
+    outline: none;
+    border-color: #005EB8;
+    box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.1);
+}
+
+.ai-button {
+    background: linear-gradient(135deg, #005EB8 0%, #002D62 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.1s;
+    width: fit-content;
+}
+
+.ai-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.ai-button:active {
+    transform: translateY(0);
+}
+
+.ai-output {
+    flex-grow: 1;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 16px;
+    color: #334155;
+    overflow-y: auto;
+    position: relative;
+}
+
+.ai-output.placeholder {
+    color: #94a3b8;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title Slide -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>Sales Enablement Manager: Role Formalization</h1>
+        <hr>
+        <p class="subtitle">A Strategic Business Case for 2026</p>
+        <span class="meta">Prepared for Chris Hickey, CBDO | Q1 2026 Strategy</span>
+    </div>
+</div>
+
+<!-- Slide 2: Executive TL;DR -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">Executive Summary: The Decision</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Situation & Impact</h3>
+                <ul>
+                    <li><strong>Scope Expansion:</strong> Operational responsibilities have grown 60% beyond the "Associate" job description.</li>
+                    <li><strong>Hidden Enablement:</strong> Current output effectively functions as "Sales Enablement," removing significant admin burden from the BD team.</li>
+                    <li><strong>Infrastructure Risk:</strong> Critical revenue systems rely on "goodwill" effort rather than defined scope.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Economics & Recommendation</h3>
+                <ul>
+                    <li><strong>High ROI:</strong> Formalization yields a <strong>3:1 ROI</strong> ($162k Net Impact) by unlocking selling capacity.</li>
+                    <li><strong>Revenue Protection:</strong> Ensures pipeline hygiene and forecast accuracy for board reporting.</li>
+                    <li><strong>Recommendation:</strong> Formalize the "Sales Enablement Manager" role effective Q1 2026 ($130k Base).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Current Reality (Bleed Image) -->
+<div class="slide-container bleed-image-layout" id="slide3">
+    <div class="content-container">
+        <h2>The Role Already Exists</h2>
+        <div class="bleed-text-side">
+            <p>Current execution effectively bridges the gap between Marketing, Operations, and Business Development.</p>
+            <table class="simple-table">
+                <tr>
+                    <td>Pipeline Governance</td>
+                    <td>Active management keeps >70% deals active & reduces HREC violations.</td>
+                </tr>
+                <tr>
+                    <td>Lead Infrastructure</td>
+                    <td>100% of conference leads enriched & ingested into Salesforce.</td>
+                </tr>
+                <tr>
+                    <td>Customer Signal</td>
+                    <td>End-to-end NPS program synthesis & reporting.</td>
+                </tr>
+                <tr>
+                    <td>Event Logistics</td>
+                    <td>Managing global registrations, booths, and vendor logistics.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="image-container">
+        <!-- Using a reliable placeholder image source -->
+        <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/10874722085491982075" alt="Abstract bridge connecting business silos" onerror="this.onerror=null; this.src='https://placehold.co/600x720?text=Bridge+Image';">
+    </div>
+</div>
+
+<!-- Slide 4: Business Impact -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Business Impact: Speed & Risk</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-stopwatch"></i></div>
+                <h3>Speed to Lead</h3>
+                <p>Reduces post-conference follow-up time from 5-7 days to <strong>&lt;48 hours</strong>, significantly accelerating the initial sales cycle and deal velocity.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Forecast Reality</h3>
+                <p>Strict governance ensures <strong>&lt;25% HREC violations</strong>, removing "bloat" deals and ensuring Board-level reporting reflects revenue reality.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Risk Mitigation</h3>
+                <p>Proactive management prevents compliance red flags and protects revenue integrity by owning the "clean data" engine.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Cost Value Summary & ROI -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Cost Value Summary & ROI</h2>
+    <div class="content-area">
+        <div class="chart-container">
+            <div class="bar">
+                <div class="label">Investment Required</div>
+                <div class="bar-inner" style="background: transparent;">
+                    <div class="bar-fill" style="width: 25%; background: #ef4444; justify-content: flex-start; padding-left: 15px;">-$50k (Comp Adjustment)</div>
+                </div>
+            </div>
+             <div class="bar">
+                <div class="label">Productivity Reclaimed</div>
+                <div class="bar-inner" style="background: transparent;">
+                    <div class="bar-fill" style="width: 40%; background: #10b981; margin-left: 25%;">+$73,440 (Admin Time)</div>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="label">Pipeline Protected</div>
+                <div class="bar-inner" style="background: transparent;">
+                    <div class="bar-fill" style="width: 80%; background: #005EB8; margin-left: 25%;">+$149,000+ (Risk Mitigation)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+            <div class="tile" style="padding: 20px;">
+                <h3 style="font-size: 36px; margin: 0 0 10px 0;">96</h3>
+                <p style="font-size: 16px;">Selling hours gained annually <strong>per BD</strong> by removing admin burden.</p>
+            </div>
+            <div class="tile" style="padding: 20px;">
+                <h3 style="font-size: 36px; margin: 0 0 10px 0;">$73k</h3>
+                <p style="font-size: 16px;">Direct productivity value reclaimed annually by the team.</p>
+            </div>
+            <div class="tile" style="padding: 20px;">
+                <h3 style="font-size: 36px; margin: 0 0 10px 0;">Offset</h3>
+                <p style="font-size: 16px;">Incremental cost is fully offset by efficiency gains & risk mitigation.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Role Definition -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Role Definition: Sales Enablement Manager</h2>
+    <div class="content-area">
+        <p style="font-size: 24px; color: #002D62; margin-bottom: 30px;"><strong>Purpose:</strong> Protect revenue, accelerate BD productivity, and scale execution.</p>
+        <div class="two-column tiled">
+            <div>
+                <h3>Core Pillars (Operational)</h3>
+                <ul>
+                    <li><strong>Revenue Signal Ownership:</strong> Pipeline health governance & forecast credibility.</li>
+                    <li><strong>Seller Productivity:</strong> Dashboard creation & increasing tool adoption.</li>
+                    <li><strong>Conference ROI:</strong> Execution of global events & strategic lead capture.</li>
+                    <li><strong>Cross-functional Alignment:</strong> Reducing handoff friction between Clinical & BD.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Core Pillars (Strategic)</h3>
+                <ul>
+                    <li><strong>Customer Intelligence:</strong> NPS ownership (Insight &rarr; Action).</li>
+                    <li><strong>Enablement Product Owner:</strong> Testing AI tools & RFP agents.</li>
+                    <li><strong>BD Playbooks:</strong> Standardizing operating rhythms.</li>
+                </ul>
+            </div>
+        </div>
+        <p class="chart-summary">This formalizes what is already happening and gives it mandate and accountability.</p>
+    </div>
+</div>
+
+<!-- Slide 7: The Ask -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">The Ask</h2>
+    <div class="content-area">
+        <div class="ask-grid">
+            <div class="ask-box">
+                <h3>Approve</h3>
+                <ul>
+                    <li><strong>Title:</strong> Sales Enablement Manager</li>
+                    <li><strong>Compensation:</strong> $120k–$140k USD</li>
+                    <li><strong>Effective:</strong> Q1 2026</li>
+                </ul>
+            </div>
+            <div class="ask-box">
+                <h3>Outcome</h3>
+                <ul>
+                    <li>Revenue Protection</li>
+                    <li>Seller Productivity</li>
+                    <li>Scalable Execution</li>
+                    <li><strong>No Additional Headcount</strong></li>
+                </ul>
+            </div>
+            <div class="decision-box">
+                <h3>Decision: Approve and formalize the role.</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Anchor Conclusion -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Conclusion: The Strategic Case</h2>
+    <div class="content-area">
+        <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+            <h3 style="font-size: 48px; color: #002D62; margin-bottom: 50px;">A $40k–$60k Investment:</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
+                    <p style="font-size: 24px; margin: 0;">Prevents productivity loss</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
+                    <p style="font-size: 24px; margin: 0;">Protects forecast integrity</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
+                    <p style="font-size: 24px; margin: 0;">Avoids replacement risk</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
+                    <p style="font-size: 24px; margin: 0;">Enables scale without headcount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Live AI Prototype (NEW) -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Live Prototype: AI Enablement</h2>
+    <div class="content-area">
+        <div class="two-column tiled" style="grid-template-columns: 1fr 1.5fr;">
+            <!-- Context Side -->
+            <div>
+                <h3>Pillar 5 in Action</h3>
+                <p>This "RFP Assistant" demonstrates the <strong>Product Management</strong> capability of the new role.</p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Problem:</strong> Senior BDs waste 3-5 hours/week searching for "boilerplate" answers for RFPs.</li>
+                    <li><strong>Solution:</strong> A maintained AI model trained on our past successful proposals.</li>
+                    <li><strong>Impact:</strong> Reduces drafting time by 60%, allowing BD to focus on strategy and pricing.</li>
+                </ul>
+                <div style="margin-top: 40px; padding: 20px; background: #e0f2fe; border-radius: 8px; border-left: 4px solid #005EB8;">
+                    <p style="font-size: 16px; margin: 0; color: #002D62;"><strong>Try it:</strong> Ask about our Phase I capabilities or Oncology experience.</p>
+                </div>
+            </div>
+
+            <!-- Interactive Demo Side -->
+            <div class="ai-demo-container">
+                <div class="ai-input-group">
+                    <label class="ai-label">Incoming Client RFP Question</label>
+                    <textarea id="rfpInput" class="ai-textarea" placeholder="e.g., Do you have experience with Phase I Oncology trials in Australia?"></textarea>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                    <button id="generateBtn" class="ai-button" onclick="generateResponse()">
+                        <span class="loading-spinner" id="spinner"></span>
+                        <span>Generate Response ✨</span>
+                    </button>
+                </div>
+
+                <div class="ai-input-group" style="flex-grow: 1; display: flex; flex-direction: column;">
+                    <label class="ai-label">Drafted Response (Nucleus Voice)</label>
+                    <div id="aiOutput" class="ai-output placeholder">
+                        AI generated response will appear here...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+    // Initialize Firebase
+    const firebaseConfig = JSON.parse(__firebase_config || '{}');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const apiKey = ""; // Injected by environment
+
+    // Sign in anonymously
+    signInAnonymously(auth).then(() => {
+        console.log("Authenticated anonymously for AI features.");
+    }).catch((error) => {
+        console.error("Auth Error:", error);
+    });
+
+    // Make functions globally available
+    window.generateResponse = async function() {
+        const input = document.getElementById('rfpInput').value;
+        const outputDiv = document.getElementById('aiOutput');
+        const spinner = document.getElementById('spinner');
+        const btnText = document.querySelector('#generateBtn span:last-child');
+
+        if (!input.trim()) {
+            outputDiv.innerHTML = "Please enter a question first.";
+            outputDiv.classList.add('placeholder');
+            return;
+        }
+
+        // UI Loading State
+        spinner.style.display = 'inline-block';
+        btnText.textContent = 'Generating...';
+        outputDiv.innerHTML = '';
+        outputDiv.classList.remove('placeholder');
+
+        const systemPrompt = `
+            You are an expert Proposal Manager for Nucleus Network, a global clinical trials organization.
+            Your goal is to draft professional, concise, and persuasive responses to RFP (Request for Proposal) questions.
+            
+            Key Facts to Weave In:
+            - We are one global unified parter with locations in Brisbane, Sydney, and Melbourne Australia, Minneapolis, Minnesota, and London
+            - We have 80 beds in Minneapolis and 150+ in Australia (Melbourne/Brisbane).
+            - Over 2500 Phase 1 clinical trials conducted
+            - 30+ years experience in Phase 1 clinical trials
+            - Over 350 Phase 1 clinical trial beds
+            - Succesful track record with FDA, MHRA, and EMA regulatory inspections
+            - We specialize in Phase I early-phase trials.
+            - We have conducted over 500 First-in-Human studies.
+            - For Australia questions: Mention the R&D Tax Incentive (43.5% cash back).
+            - Tone: Professional, confident, expert, but not overly "salesy".
+            
+            Question: ${input}
+        `;
+
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: systemPrompt
+                        }]
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('API request failed');
+            }
+
+            const data = await response.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            
+            // Simple markdown parsing for the demo
+            const formattedText = aiText
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            outputDiv.innerHTML = formattedText;
+
+        } catch (error) {
+            console.error(error);
+            outputDiv.innerHTML = `<span style="color: #ef4444;">Error generating response. Please try again.</span>`;
+        } finally {
+            spinner.style.display = 'none';
+            btnText.textContent = 'Generate Response ✨';
+        }
+    };
+</script>
+
+</body>
+</html>
