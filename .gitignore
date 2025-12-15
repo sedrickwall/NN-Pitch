@@ -1,0 +1,23 @@
+# Environment / secrets
+.env
+.env.*
+
+# Node modules and logs (if you ever add a package.json)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
+.DS_Store
+
+# Local editor folders
+.vscode/
+
+# Build outputs
+dist/
+build/
+
+# Ignore any file that might contain API keys
+secrets.json
+local-secrets.json

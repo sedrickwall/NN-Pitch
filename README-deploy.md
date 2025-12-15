@@ -45,3 +45,20 @@ Verification checklist
 - [ ] Visit the deployed URL and confirm the redirect to `sales_pitch.html` works.
 - [ ] Test any interactive features (AI demo, Firebase calls).
 - [ ] If something breaks, check the browser console for errors and confirm external resources (fonts, CDN) are reachable.
+
+Keeping API keys safe
+---------------------
+- Do NOT commit API keys or secrets to the repository. This repo includes a `.gitignore` and `.env.example` to help.
+- Locally, create a `.env` (or `.env.local`) file and add your keys like:
+
+```text
+API_KEY=your_google_api_key_here
+HF_API_KEY=hf_xxx_your_hf_key
+HF_MODEL=gpt2
+```
+
+- For Vercel/Netlify deployments, add these as Environment Variables in the project settings (recommended). Do not embed secrets in client-side code.
+
+Client-side usage in this repo
+-----------------------------
+- This page looks for keys in `localStorage` or as injected globals (`__api_key`, `__hf_api_key`, `__hf_model`) for quick testing. Prefer using server-side environment variables and a serverless proxy to keep keys secret in production.
