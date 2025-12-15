@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "**/*", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/sales_pitch.html" },
-  { "src": "/bridge.png", "dest": "/assets/bridge.png" }
-  ]
-  ,"rewrites": [
-    { "source": "/bridge.png", "destination": "/assets/bridge.png" }
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/sales_pitch.html"
+    },
+    {
+      "source": "/bridge.png",
+      "destination": "/assets/bridge.png"
+    }
   ]
 }
