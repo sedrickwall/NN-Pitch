@@ -7,4 +7,7 @@
     { "src": "/", "dest": "/sales_pitch.html" },
     { "src": "/bridge.png", "dest": "/Bridge.png" }
   ]
+  ,"rewrites": [
+    { "source": "/bridge.png", "destination": "/Bridge.png" }
+  ]
 }
