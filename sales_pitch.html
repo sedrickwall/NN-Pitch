@@ -87,7 +87,7 @@ p, li, th, td {
 
 h1 { font-size: 64px; margin-bottom: 20px; }
 .slide-title { font-size: 42px; margin-bottom: 40px; width: 100%; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
-h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for Subheads */ }
+h3 { font-size: 24px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for Subheads */ }
 .subtitle { font-size: 24px; color: #64748b; font-weight: 300; }
 
 /* 3. LAYOUTS */
@@ -113,7 +113,8 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
 .two-column.tiled > div { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-start; }
 .two-column.tiled h3 { border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; margin-bottom: 20px; }
 .two-column.tiled ul { padding-left: 20px; margin: 0; }
-.two-column.tiled li { margin-bottom: 15px; font-size: 19px; }
+.two-column.tiled li { margin-bottom: 15px; font-size: 17px; }
+.two-column.tiled li strong { color: #002D62; display: block; margin-bottom: 4px; }
 
 /* Bleed Image Right */
 .slide-container.bleed-image-layout {
@@ -151,7 +152,7 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
 .timeline-item h3 { font-size: 22px; color: #002D62; margin-bottom: 10px; }
 .timeline-item p { font-size: 16px; color: #64748b; }
 
-/* Table for Current Reality (Optional use in Bleed layout or standalone) */
+/* Table for Current Reality */
 .simple-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
 .simple-table td { padding: 15px 0; border-bottom: 1px solid #e2e8f0; font-size: 18px; }
 .simple-table td:first-child { font-weight: 700; color: #002D62; width: 40%; }
@@ -164,14 +165,13 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
 .decision-box { grid-column: 1 / -1; background: #002D62; color: white; padding: 30px; text-align: center; border-radius: 8px; margin-top: 20px; }
 .decision-box h3 { color: white; }
 
-/* Roadmap Grid (updated) */
+/* Roadmap Grid */
 .roadmap-grid {
     display: grid;
-    grid-template-columns: 180px repeat(3, 1fr); /* slightly wider labels + 3 phases */
-    gap: 20px;
+    grid-template-columns: 120px 1fr 1fr 1fr;
+    gap: 15px;
     width: 100%;
     margin-top: 10px;
-    align-items: stretch; /* ensure cards stretch uniformly */
 }
 .roadmap-header {
     font-weight: 700;
@@ -210,14 +210,96 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
 .roadmap-card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 .roadmap-card strong { color: #002D62; display: block; margin-bottom: 2px; font-size: 15px; }
 .roadmap-card span { font-size: 13px; color: #64748b; line-height: 1.3; flex-grow: 1; }
-.impact-tag {
-    margin-top: auto;
-    padding-top: 6px;
-    border-top: 1px dashed #cbd5e1;
-    font-size: 11px;
-    color: #10b981;
-    font-weight: 600;
+.impact-tag { 
+    margin-top: auto; 
+    padding-top: 6px; 
+    border-top: 1px dashed #cbd5e1; 
+    font-size: 11px; 
+    color: #10b981; 
+    font-weight: 600; 
     text-transform: uppercase;
+}
+
+/* Revenue Engine (Slide 6 Styles) */
+.engine-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+.engine-pillar {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.engine-pillar:not(:last-child)::after {
+    content: '\f061'; /* FontAwesome arrow right */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cbd5e1;
+    font-size: 24px;
+    z-index: 2;
+}
+.engine-pillar h3 {
+    font-size: 20px;
+    color: #002D62;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #005EB8;
+    padding-bottom: 10px;
+}
+.engine-icon {
+    font-size: 32px;
+    color: #005EB8;
+    margin-bottom: 15px;
+}
+.engine-pillar ul {
+    padding-left: 20px;
+    margin: 0;
+    flex-grow: 1;
+}
+.engine-pillar li {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #475569;
+}
+.engine-impact {
+    margin-top: 20px;
+    background: #f0f9ff;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #005EB8;
+}
+.engine-impact p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0;
+}
+.engine-footer {
+    background: #002D62;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: auto;
+}
+.engine-footer h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 /* AI Demo Styles */
@@ -341,22 +423,46 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
 <div class="slide-container" id="slide2">
     <h2 class="slide-title">Executive Summary: The Decision</h2>
     <div class="content-area">
-        <div class="two-column tiled">
-            <div>
-                <h3>Situation & Impact</h3>
-                <ul>
-                    <li><strong>Scope Expansion:</strong> Operational responsibilities have grown 60% beyond the "Associate" job description.</li>
-                    <li><strong>Hidden Enablement:</strong> Current output effectively functions as "Sales Enablement," removing significant admin burden from the BD team.</li>
-                    <li><strong>Infrastructure Risk:</strong> Critical revenue systems rely on "goodwill" effort rather than defined scope.</li>
-                </ul>
+        <div class="two-column tiled" style="gap: 30px; align-items: stretch;">
+            <!-- Left Column: Context -->
+            <div style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h3 style="font-size: 20px; color: #002D62; margin-bottom: 10px;">The Opportunity</h3>
+                    <p style="font-size: 15px; line-height: 1.4;">Nucleus Network’s global clinical trial expertise is a valuable asset, yet currently fragmented. This limits marketing impact, proposal quality, and revenue outcomes. With rising sponsor expectations for speed, organizations that convert expertise into fast, high-quality responses win more often.</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 20px; color: #002D62; margin-bottom: 10px;">The Strategy</h3>
+                    <p style="font-size: 15px; line-height: 1.4; margin-bottom: 8px;">Formalize a Global Revenue Enablement Platform acting as a closed-loop revenue engine:</p>
+                    <ul style="font-size: 14px; padding-left: 20px; margin: 0;">
+                        <li style="margin-bottom: 5px;">Global expertise improves top-of-funnel quality.</li>
+                        <li style="margin-bottom: 5px;">AI accelerates RFIs and sponsor responses.</li>
+                        <li style="margin-bottom: 5px;">Proposal excellence increases conversion rates.</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3>Economics & Recommendation</h3>
-                <ul>
-                    <li><strong>High ROI:</strong> Formalization yields a <strong>3:1 ROI</strong> ($162k Net Impact) by unlocking selling capacity.</li>
-                    <li><strong>Revenue Protection:</strong> Ensures pipeline hygiene and forecast accuracy for board reporting.</li>
-                    <li><strong>Recommendation:</strong> Formalize the "Sales Enablement Manager" role effective Q1 2026 ($130k Base).</li>
-                </ul>
+
+            <!-- Right Column: Solution -->
+            <div style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h3 style="font-size: 20px; color: #002D62; margin-bottom: 10px;">The Role</h3>
+                    <p style="font-size: 15px; line-height: 1.4; margin-bottom: 8px;">The Sales Enablement Manager functions as the <strong>Product Owner</strong> of this engine, owning:</p>
+                    <ul style="font-size: 14px; padding-left: 20px; margin: 0;">
+                        <li style="margin-bottom: 5px;">Global expertise capture & reuse.</li>
+                        <li style="margin-bottom: 5px;">AI-enabled RFI & proposal systems.</li>
+                        <li style="margin-bottom: 5px;">Pipeline integrity & signal governance.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 20px; color: #002D62; margin-bottom: 10px;">Business Impact</h3>
+                    <ul style="font-size: 14px; padding-left: 20px; margin: 0;">
+                        <li style="margin-bottom: 5px;">Higher-quality inbound sponsors.</li>
+                        <li style="margin-bottom: 5px;">Faster response times & shorter sales cycles.</li>
+                        <li style="margin-bottom: 5px;">Scale without incremental sales headcount.</li>
+                    </ul>
+                </div>
+                <div style="background-color: #e0f2fe; padding: 15px; border-radius: 6px; border-left: 4px solid #005EB8; margin-top: auto;">
+                    <p style="font-size: 14px; font-weight: 600; color: #002D62; margin: 0;">Recommendation: Formalize role effective Q1 2026. This is a strategic investment in durable revenue capability, not headcount expansion.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -417,39 +523,94 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
         </div>
     </div>
 </div>
-<!-- Slide 5: Role Definition -->
+<!-- Slide 5: Product Ownership -->
 <div class="slide-container" id="slide5">
-    <h2 class="slide-title">Role Definition: Sales Enablement Manager</h2>
+    <h2 class="slide-title" style="font-size: 36px; margin-bottom: 20px;">Product Ownership: Global Revenue Enablement Platform</h2>
     <div class="content-area">
-        <p style="font-size: 24px; color: #002D62; margin-bottom: 30px;"><strong>Purpose:</strong> Protect revenue, accelerate BD productivity, and scale execution.</p>
-        <div class="two-column tiled">
-            <div>
-                <h3>Core Pillars (Operational)</h3>
-                <ul>
-                    <li><strong>Revenue Signal Ownership:</strong> Pipeline health governance & forecast credibility.</li>
-                    <li><strong>Seller Productivity:</strong> Dashboard creation & increasing tool adoption.</li>
-                    <li><strong>Conference ROI:</strong> Execution of global events & strategic lead capture.</li>
-                    <li><strong>Cross-functional Alignment:</strong> Reducing handoff friction between Clinical & BD.</li>
+        <p style="font-size: 20px; color: #002D62; margin-bottom: 20px; text-align: center; max-width: 900px;"><strong>Purpose:</strong> Own and scale the systems that convert global expertise into revenue by improving funnel quality, speed, and conversion efficiency.</p>
+        <div class="two-column tiled" style="gap: 30px;">
+            <div style="padding: 25px;">
+                <h3 style="font-size: 22px; margin-bottom: 15px;">Foundational Layers</h3>
+                <ul style="padding-left: 15px;">
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>Global Revenue Signal Governance</strong><br>Own pipeline health, HREC integrity, and forecast credibility. Ensure board-level reporting reflects revenue reality.</li>
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>Seller Productivity Platform</strong><br>Build and optimize dashboards that surface next-best actions. Drive adoption of tools that reduce admin burden.</li>
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>Conference Revenue Engine</strong><br>Productize conference execution and lead capture. Ensure global events feed high-quality opportunities.</li>
                 </ul>
             </div>
-            <div>
-                <h3>Core Pillars (Strategic)</h3>
-                <ul>
-                    <li><strong>Customer Intelligence:</strong> NPS ownership (Insight &rarr; Action).</li>
-                    <li><strong>Enablement Product Owner:</strong> Testing AI tools & RFP agents.</li>
-                    <li><strong>BD Playbooks:</strong> Standardizing operating rhythms.</li>
+            <div style="padding: 25px;">
+                <h3 style="font-size: 22px; margin-bottom: 15px;">Growth & Scale Layers</h3>
+                <ul style="padding-left: 15px;">
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>Global Expertise Intelligence</strong><br>Convert institutional knowledge into structured insights. Feed marketing assets and sales narratives with real data.</li>
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>AI-Enabled RFI & Proposal Systems</strong><br>Own rollout of AI agents for RFIs and proposals. Improve response speed, quality, and consistency at scale.</li>
+                    <li style="font-size: 16px; margin-bottom: 10px;"><strong>BD Playbooks & Operating Standards</strong><br>Standardize best practices for CRO and Direct engagement. Increase repeatable execution across regions.</li>
                 </ul>
             </div>
         </div>
-        <p class="chart-summary">This formalizes what is already happening and gives it mandate and accountability.</p>
+        <p class="chart-summary" style="margin-top: 20px; font-size: 16px;">This role functions as the Product Owner of Nucleus’s revenue enablement engine, accountable for outcomes — not tasks.</p>
     </div>
 </div>
 
-<!-- Slide 6: Growth Roadmap (NEW) -->
+<!-- Slide 6: The Core Pillars (Revenue Engine) -->
 <div class="slide-container" id="slide6">
+    <h2 class="slide-title">The Nucleus Revenue Engine</h2>
+    <p style="font-size: 18px; color: #64748b; margin-top: -30px; margin-bottom: 30px;">Transforming global clinical trial expertise into faster wins and higher conversion.</p>
+    
+    <div class="content-area">
+        <div class="engine-container">
+            <!-- Pillar 1 -->
+            <div class="engine-pillar">
+                <div class="engine-icon"><i class="fa-solid fa-globe"></i></div>
+                <h3>Global Expertise (Asset)</h3>
+                <ul>
+                    <li>Consolidated, reusable global experience data.</li>
+                    <li>Aggregates insights from RFIs, proposals, and interactions.</li>
+                    <li>Captures distributed institutional knowledge.</li>
+                </ul>
+                <div class="engine-impact">
+                    <p>Impact: Higher-quality inbound sponsors & early-stage trust.</p>
+                </div>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="engine-pillar">
+                <div class="engine-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>AI Intelligence (Accelerator)</h3>
+                <ul>
+                    <li>Scale expertise instantly across RFIs.</li>
+                    <li>Reduces response time and bottlenecks.</li>
+                    <li>Ensures consistency and Nucleus voice.</li>
+                </ul>
+                <div class="engine-impact">
+                    <p>Impact: Faster deal momentum & top-of-funnel conversion.</p>
+                </div>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="engine-pillar">
+                <div class="engine-icon"><i class="fa-solid fa-file-signature"></i></div>
+                <h3>Proposal Excellence (Conversion)</h3>
+                <ul>
+                    <li>Data-backed, differentiated proposals.</li>
+                    <li>Stronger clarity versus competitors.</li>
+                    <li>Improved sponsor confidence & decision-making.</li>
+                </ul>
+                <div class="engine-impact">
+                    <p>Impact: Higher win rates & predictable revenue.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="engine-footer">
+            <h4>Outcome: A closed-loop revenue engine that improves funnel quality, accelerates sales cycles, and increases win rates — without additional headcount.</h4>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Growth Roadmap -->
+<div class="slide-container" id="slide7">
     <h2 class="slide-title">Growth Roadmap: 2026–2027</h2>
     <div class="content-area">
-        <p style="font-size: 18px; color: #64748b; margin-bottom: 20px; margin-top: 0;">Transitioning from "Tasks" to a scalable "BD Enablement Platform"</p>
+        <p style="font-size: 18px; color: #64748b; margin-bottom: 20px; margin-top: -30px;">Transitioning from "Tasks" to a scalable "BD Enablement Platform"</p>
         
         <div class="roadmap-grid">
             <!-- Header Row -->
@@ -532,7 +693,7 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
                 <div class="impact-tag">Consistent comms</div>
             </div>
             <div class="roadmap-card" style="border: 2px solid #005EB8; background:#e0f2fe;">
-                <strong>RFP AI Agent</strong>
+                <strong>RFI AI Agent</strong>
                 <span>Drafting responses & FAQs (See Next Slide).</span>
                 <div class="impact-tag">60% faster drafts</div>
             </div>
@@ -545,8 +706,9 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
     </div>
 </div>
 
-<!-- Slide 7: Live AI Prototype (moved after Slide 6) -->
-<div class="slide-container" id="slide7">
+
+<!-- Slide 8: Live AI Prototype (moved after Slide 6) -->
+<div class="slide-container" id="slide8">
     <h2 class="slide-title">Live Prototype: AI Enablement</h2>
     <div class="content-area">
         <div class="two-column tiled" style="grid-template-columns: 1fr 1.5fr;">
@@ -590,8 +752,8 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
     </div>
 </div>
 
-<!-- Slide 8: The Ask -->
-<div class="slide-container" id="slide8">
+<!-- Slide 9: The Ask -->
+<div class="slide-container" id="slide9">
     <h2 class="slide-title">The Ask</h2>
     <div class="content-area">
         <div class="ask-grid">
@@ -619,73 +781,146 @@ h3 { font-size: 28px; margin-bottom: 15px; color: #005EB8; /* Brighter Blue for 
     </div>
 </div>
 
-<!-- Slide 9: Cost Value Summary & ROI -->
-<div class="slide-container" id="slide9">
-    <h2 class="slide-title">Cost Value Summary & ROI</h2>
-    <div class="content-area">
-        <div class="chart-container">
-            <div class="bar">
-                <div class="label">Investment Required</div>
-                <div class="bar-inner" style="background: transparent;">
-                    <div class="bar-fill" style="width: 25%; background: #ef4444; justify-content: flex-start; padding-left: 15px;">-$50k (Comp Adjustment)</div>
+<!-- Slide 10: Cost Value Summary & ROI -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title" style="margin-bottom: 10px;">ROI: Win-Rate Acceleration, Not Headcount Expansion</h2>
+    <div class="content-area" style="justify-content: flex-start; padding-top: 0;">
+        
+        <!-- Framing -->
+        <p style="font-size: 16px; color: #475569; margin-bottom: 20px; max-width: 1000px; text-align: left;">
+            <strong>Incremental Investment:</strong> Compensation alignment for a role already operating in practice.<br>
+            The return is driven by higher conversion efficiency — not incremental spend — through improved proposal quality, faster deal cycles, and reclaimed selling time.
+        </p>
+
+        <!-- Visuals Section -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; width: 100%; margin-bottom: 25px; align-items: center;">
+            <!-- Charts (Left) -->
+            <div class="chart-container" style="margin: 0; width: 100%;">
+                <div class="bar" style="margin-bottom: 10px;">
+                    <div class="label" style="font-size: 14px; flex: 0 0 140px;">Investment</div>
+                    <div class="bar-inner" style="height: 35px;">
+                        <div class="bar-fill" style="width: 25%; background: #ef4444; font-size: 14px;">-$50k</div>
+                    </div>
+                </div>
+                 <div class="bar" style="margin-bottom: 10px;">
+                    <div class="label" style="font-size: 14px; flex: 0 0 140px;">Productivity</div>
+                    <div class="bar-inner" style="height: 35px;">
+                        <div class="bar-fill" style="width: 40%; background: #10b981; font-size: 14px; margin-left: 25%;">+$73k</div>
+                    </div>
+                </div>
+                <div class="bar" style="margin-bottom: 0;">
+                    <div class="label" style="font-size: 14px; flex: 0 0 140px;">Risk Mitigation</div>
+                    <div class="bar-inner" style="height: 35px;">
+                        <div class="bar-fill" style="width: 80%; background: #005EB8; font-size: 14px; margin-left: 25%;">+$149k</div>
+                    </div>
                 </div>
             </div>
-             <div class="bar">
-                <div class="label">Productivity Reclaimed</div>
-                <div class="bar-inner" style="background: transparent;">
-                    <div class="bar-fill" style="width: 40%; background: #10b981; margin-left: 25%;">+$73,440 (Admin Time)</div>
+            
+            <!-- Tiles (Right - Row of small tiles) -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div class="tile" style="padding: 10px;">
+                    <h3 style="font-size: 24px; margin: 0; color: #002D62;">96</h3>
+                    <p style="font-size: 12px; line-height: 1.2;">Hrs/BD gained</p>
                 </div>
-            </div>
-            <div class="bar">
-                <div class="label">Pipeline Protected</div>
-                <div class="bar-inner" style="background: transparent;">
-                    <div class="bar-fill" style="width: 80%; background: #005EB8; margin-left: 25%;">+$149,000+ (Risk Mitigation)</div>
+                <div class="tile" style="padding: 10px;">
+                    <h3 style="font-size: 24px; margin: 0; color: #10b981;">$73k</h3>
+                    <p style="font-size: 12px; line-height: 1.2;">Value Reclaimed</p>
+                </div>
+                <div class="tile" style="padding: 10px;">
+                    <h3 style="font-size: 24px; margin: 0; color: #005EB8;">Offset</h3>
+                    <p style="font-size: 12px; line-height: 1.2;">Cost Covered</p>
                 </div>
             </div>
         </div>
 
-        <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-            <div class="tile" style="padding: 20px;">
-                <h3 style="font-size: 36px; margin: 0 0 10px 0;">96</h3>
-                <p style="font-size: 16px;">Selling hours gained annually <strong>per BD</strong> by removing admin burden.</p>
+        <!-- Drivers Section -->
+        <h3 style="font-size: 18px; color: #002D62; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; width: 100%;">Primary ROI Drivers</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; margin-bottom: 20px;">
+            <!-- Driver 1 -->
+            <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <strong style="color: #005EB8; display: block; margin-bottom: 8px; font-size: 15px;">1. Win-Rate Improvement</strong>
+                <ul style="margin: 0; padding-left: 15px; font-size: 13px; color: #475569; margin-bottom: 8px;">
+                    <li>Stronger, data-backed proposals</li>
+                    <li>Faster RFI/feasibility responses</li>
+                    <li>Clearer differentiation</li>
+                </ul>
+                <p style="font-size: 12px; color: #0f172a; margin: 0; font-weight: 600; border-top: 1px dashed #cbd5e1; padding-top: 5px;">Impact: 1–2% win-rate lift outweighs cost.</p>
             </div>
-            <div class="tile" style="padding: 20px;">
-                <h3 style="font-size: 36px; margin: 0 0 10px 0;">$73k</h3>
-                <p style="font-size: 16px;">Direct productivity value reclaimed annually by the team.</p>
+            <!-- Driver 2 -->
+            <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <strong style="color: #005EB8; display: block; margin-bottom: 8px; font-size: 15px;">2. Sales Cycle Acceleration</strong>
+                <ul style="margin: 0; padding-left: 15px; font-size: 13px; color: #475569; margin-bottom: 8px;">
+                    <li>Reduced top-of-funnel lag</li>
+                    <li>Faster interest → proposal → decision</li>
+                </ul>
+                <p style="font-size: 12px; color: #0f172a; margin: 0; font-weight: 600; border-top: 1px dashed #cbd5e1; padding-top: 5px;">Impact: Revenue realized sooner.</p>
             </div>
-            <div class="tile" style="padding: 20px;">
-                <h3 style="font-size: 36px; margin: 0 0 10px 0;">Offset</h3>
-                <p style="font-size: 16px;">Incremental cost is fully offset by efficiency gains & risk mitigation.</p>
+            <!-- Driver 3 -->
+            <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <strong style="color: #005EB8; display: block; margin-bottom: 8px; font-size: 15px;">3. Productivity Leverage</strong>
+                <ul style="margin: 0; padding-left: 15px; font-size: 13px; color: #475569; margin-bottom: 8px;">
+                    <li>AI reduces non-selling time</li>
+                    <li>Repeatable workflows replace ad-hoc</li>
+                </ul>
+                <p style="font-size: 12px; color: #0f172a; margin: 0; font-weight: 600; border-top: 1px dashed #cbd5e1; padding-top: 5px;">Impact: More selling time, no new hires.</p>
             </div>
         </div>
+
+        <!-- Anchor -->
+        <div style="background-color: #002D62; color: white; padding: 12px; width: 100%; text-align: center; border-radius: 4px;">
+            <p style="margin: 0; font-size: 16px; font-weight: 600;">The return is driven by higher conversion efficiency, not incremental spend.</p>
+        </div>
+
     </div>
 </div>
 
-<!-- Slide 10: Conclusion: The Strategic Case -->
-<div class="slide-container" id="slide10">
-    <h2 class="slide-title">Conclusion: The Strategic Case</h2>
-    <div class="content-area">
-        <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-            <h3 style="font-size: 48px; color: #002D62; margin-bottom: 50px;">A $40k–$60k Investment:</h3>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
-                    <p style="font-size: 24px; margin: 0;">Prevents productivity loss</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
-                    <p style="font-size: 24px; margin: 0;">Protects forecast integrity</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
-                    <p style="font-size: 24px; margin: 0;">Avoids replacement risk</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <i class="fa-solid fa-check-circle" style="color: #10b981; font-size: 32px;"></i>
-                    <p style="font-size: 24px; margin: 0;">Enables scale without headcount</p>
-                </div>
+<!-- Slide 11: Conclusion -->
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">Conclusion: A Scalable Revenue Advantage</h2>
+    <div class="content-area" style="justify-content: flex-start; padding-top: 20px;">
+        
+        <!-- Primary Message -->
+        <p style="font-size: 32px; color: #002D62; text-align: center; font-weight: 300; margin-bottom: 40px; max-width: 1000px; line-height: 1.3;">
+            An investment that transforms global expertise into a repeatable, scalable revenue engine.
+        </p>
+
+        <div style="display: flex; gap: 50px; width: 100%; align-items: center; justify-content: center; margin-bottom: 40px;">
+            <!-- Investment Callout -->
+            <div style="background: #005EB8; color: white; padding: 40px; border-radius: 12px; text-align: center; flex: 0 0 350px; box-shadow: 0 10px 20px rgba(0, 94, 184, 0.2);">
+                <p style="font-size: 18px; margin: 0 0 10px 0; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Incremental Investment</p>
+                <h3 style="font-size: 48px; color: white; margin: 0; line-height: 1;">$40k–$60k</h3>
             </div>
+
+            <!-- Supporting Points -->
+            <ul style="font-size: 18px; color: #334155; line-height: 1.6; list-style: none; padding: 0;">
+                <li style="margin-bottom: 15px; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-check" style="color: #10b981; margin-top: 5px;"></i>
+                    <span>Consolidates Nucleus’s global clinical trial expertise into a reusable, compounding asset</span>
+                </li>
+                <li style="margin-bottom: 15px; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-check" style="color: #10b981; margin-top: 5px;"></i>
+                    <span>Applies AI to accelerate RFIs, sponsor communication, and proposal development</span>
+                </li>
+                <li style="margin-bottom: 15px; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-check" style="color: #10b981; margin-top: 5px;"></i>
+                    <span>Improves proposal quality — where conversion to wins actually occurs</span>
+                </li>
+                <li style="margin-bottom: 15px; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-check" style="color: #10b981; margin-top: 5px;"></i>
+                    <span>Increases top-of-funnel quality, deal velocity, and win-rate consistency</span>
+                </li>
+                <li style="margin-bottom: 0; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-check" style="color: #10b981; margin-top: 5px;"></i>
+                    <span>Scales revenue impact without increasing sales headcount</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bottom-Line Statement -->
+        <div style="background-color: #f1f5f9; border-left: 6px solid #002D62; padding: 20px; width: 100%; border-radius: 4px; margin-top: auto;">
+            <p style="font-size: 20px; color: #002D62; font-weight: 700; text-align: center; margin: 0;">
+                This is not a role change — it is the formal ownership of a revenue-critical system.
+            </p>
         </div>
     </div>
 </div>
